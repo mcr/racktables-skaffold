@@ -18,6 +18,8 @@ PATH=${BASEDIR}/scripts:${BASEDIR}/bin:$PATH export PATH
 
 mysql_install_db --basedir=${BASEDIR} --datadir=${TOPDIR}/db/mysql --pid-file=${PIDFILE} --skip-external-locking --socket=${SOCKET} --log_bin=${LOGDIR}/mysql/mysql-bin.log
 
+echo ${SOCKET} >.mysql.socket
+
 # now start the DB.
 # have to start up mysql with TCP networking enabled!
 mysqld --basedir=${BASEDIR} --datadir=${TOPDIR}/db/mysql --pid-file=${PIDFILE} --skip-external-locking --socket=${SOCKET} --port=3307 --log_bin=${LOGDIR}/mysql/mysql-bin.log &
