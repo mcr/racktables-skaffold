@@ -148,6 +148,7 @@ LoadModule php5_module @PHP5_MODDIR@/libphp5.so
 	  AddType application/x-httpd-php .php .phtml .php3
 	  AddType application/x-httpd-php-source .phps
 	  PHPIniDir @TOPDIR@/etc 	
+          php_value include_path "@TOPDIR@/test/php:@TOPDIR@/php:@TOPDIR@/public/php:."
 </IfModule>
 
 # Include all the end-user configurations:
@@ -438,16 +439,31 @@ DocumentRoot @TOPDIR@/public
 	allow from all
 </Directory>
 
+Alias /phpmyadmin /usr/share/phpmyadmin
+
+<Directory /usr/share/phpmyadmin>
+	Options Indexes FollowSymLinks
+	DirectoryIndex index.php
+
+	<IfModule mod_php5.c>
+		AddType application/x-httpd-php .php
+
+		php_flag magic_quotes_gpc Off
+		php_flag track_vars On
+		php_flag register_globals Off
+	</IfModule>
+</Directory>
+
 RewriteEngine On
 
+# XXX rails
 # check for maintenance file and redirect all requests
-RewriteCond %{DOCUMENT_ROOT}/system/maintenance.html -f
-RewriteCond %{SCRIPT_FILENAME} !maintenance.html
-RewriteRule ^.*$ /system/maintenance.html [L]
+#RewriteCond %{DOCUMENT_ROOT}/system/maintenance.html -f
+#RewriteCond %{SCRIPT_FILENAME} !maintenance.html
+#RewriteRule ^.*$ /system/maintenance.html [L]
 
 # Rewrite index to check for static
 RewriteRule ^/$ /index.php [QSA]
-RewriteRule ^/vsp-forms/$ /vsp-forms/index.php [QSA]
 
 # Rewrite to check for Rails cache page
 RewriteRule ^([^.]+)$ $1.html [QSA]
@@ -455,9 +471,10 @@ RewriteRule ^([^.]+)$ $1.html [QSA]
 # look for error Alias.
 RewriteRule ^/error/(.+)$ - [L]
 
+# XXX for rails code
 # Rewrite all non-static requests to cluster
-RewriteCond %{DOCUMENT_ROOT}/%{REQUEST_FILENAME} !-f
-RewriteRule ^/(.*)$ balancer://spartan_cluster%{REQUEST_URI} [P,QSA,L]
+#RewriteCond %{DOCUMENT_ROOT}/%{REQUEST_FILENAME} !-f
+#RewriteRule ^/(.*)$ balancer://spartan_cluster%{REQUEST_URI} [P,QSA,L]
 
 ErrorLog run/log/apache2/error.log
 
