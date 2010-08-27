@@ -6,3 +6,6 @@ shutit.sh
 initdb.sh
 rundb.sh
 shutdb.sh
+loadsamples.sh
+mysql.sh
+
