@@ -11,4 +11,4 @@ else
 	BASEDIR=/usr
 fi
 
-cat public/install/init-sample-racks.sql| mysql --socket=${SOCKET} -u root --password='Ahw3ooh2' racktables_db
+mysql --socket=${SOCKET} -u root --password='Ahw3ooh2' racktables_db
