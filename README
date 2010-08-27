@@ -1,0 +1,24 @@
+This skeleton is for testing racktables.
+
+Run 
+	0) set public-> your racktables code
+	1) etc/fixup.sh
+	2) etc/initdb.sh
+	3) etc/rundb.sh
+	4) etc/runweb.sh	
+	5) touch public/inc/secret.php 
+
+Then visit http://localhost:xxxx/install.php  where xxxx is 7000 + uid.
+(It will be printed by etc/runweb.sh)
+
+The default database password is:
+	eiG7Oo1x	
+
+The default admin password is:
+	kaG2aeh5
+
+This skeleton also sets phpmyadmin (if you apt-get install phpmyadmin),
+just visit:
+	http://localhost:xxxx/phpmyadmin/
+
+
