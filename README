@@ -11,14 +11,30 @@ Run
 Then visit http://localhost:xxxx/install.php  where xxxx is 7000 + uid.
 (It will be printed by etc/runweb.sh)
 
-The default database password is:
+When it asks for the database host, enter something like:
+       /home/mcr/C/nv/ispv6/racktables-test/run/mysqld.sock
+
+rather than a hostname.  I wish that PDO would pay attention to the mysql
+socket set in the php.ini, but it does not.  To make this work, you need the
+patch at:
+       http://github.com/mcr/racktables/commit/4de52bb45cef35742c77c0b9085e44342c43656f 
+(and you probably want the whitespace patch after that one)
+
+The database password for the racktables database is:
 	eiG7Oo1x	
 
 The default admin password is:
 	kaG2aeh5
 
+The root database password is:
+        Ahw3ooh2
+
 This skeleton also sets phpmyadmin (if you apt-get install phpmyadmin),
 just visit:
-	http://localhost:xxxx/phpmyadmin/
+	http://localhost:xxxx/phpmyadmin/index.php
+        login with root and pw Ahw3ooh2
+
+
+
 
 
